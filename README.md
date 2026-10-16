@@ -42,7 +42,7 @@ cp .env.example .env        # optional: only needed for the AI chat; never commi
 
 ```
 GEMINI_API_KEY=your-key-from-aistudio.google.com
-GEMINI_MODEL=gemini-2.5-flash   # optional, this is the default
+GEMINI_MODEL=gemini-3.5-flash-lite   # optional, this is the default
 ```
 
 ## Local development
@@ -79,7 +79,7 @@ For Playwright on a fresh machine run `npx playwright install chromium` once. `p
 2. In the Vercel dashboard choose **Add New → Project** and import the repo. The framework is detected as **Vite**; `vercel.json` sets the build command (`npm run build`), the output (`dist`), the SPA rewrite, and a 30 s limit for `api/chat.ts`.
 3. Open **Settings → Environment Variables** and add:
    - `GEMINI_API_KEY`: your Google AI Studio key. Select Production (and Preview if wanted). Never put it in client code or the repo.
-   - `GEMINI_MODEL` (optional): for example `gemini-2.5-flash` (default) or `gemini-2.5-pro`.
+   - `GEMINI_MODEL` (optional): for example `gemini-3.5-flash-lite` (default) or a larger model such as `gemini-2.5-pro`.
 4. **Deploy.** If you add or change a variable after the first deployment, go to **Deployments → ⋯ → Redeploy**, because environment variables are read at deploy time.
 
 ### Testing the chat after deployment

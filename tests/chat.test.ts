@@ -12,10 +12,10 @@ describe('/api/chat — valid request path (fetch mocked)', () => {
     const f = geminiOk();
     const res = await handleChat(okBody, ENV, f);
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({ reply: 'Helper is the biggest bottleneck (peak over-allocation 4).', model: 'gemini-2.5-flash' });
+    expect(res.body).toEqual({ reply: 'Helper is the biggest bottleneck (peak over-allocation 4).', model: 'gemini-3.5-flash-lite' });
     expect(f).toHaveBeenCalledTimes(1);
     const [url, init] = f.mock.calls[0] as unknown as [string, { headers: Record<string, string>; body: string }];
-    expect(url).toBe('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent');
+    expect(url).toBe('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent');
     expect(init.headers['x-goog-api-key']).toBe('test-key');
     expect(url).not.toContain('test-key');
     const sent = JSON.parse(init.body);

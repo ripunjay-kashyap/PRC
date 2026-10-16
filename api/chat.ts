@@ -7,7 +7,7 @@
  *   summary  JSON object produced by the app (≤ 30 KB serialised)
  * Anything else is rejected, so the endpoint cannot be used as an open Gemini proxy.
  *
- * Env: GEMINI_API_KEY (required), GEMINI_MODEL (default gemini-2.5-flash).
+ * Env: GEMINI_API_KEY (required), GEMINI_MODEL (default gemini-3.5-flash-lite).
  * Self-contained on purpose: Vercel compiles each API route separately.
  */
 
@@ -21,7 +21,7 @@ export const LIMITS = {
   timeoutMs: 25_000,
 } as const;
 
-export const DEFAULT_MODEL = 'gemini-2.5-flash';
+export const DEFAULT_MODEL = 'gemini-3.5-flash-lite';
 
 export const SYSTEM_PROMPT = `You are a construction scheduling assistant for project managers, embedded in an app that analyses Primavera P6 schedules across several projects and optimises shared resources.
 
@@ -122,7 +122,7 @@ export function buildGeminiBody(req: ChatRequest) {
   return {
     systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
     contents,
-    generationConfig: { temperature: 0.2, maxOutputTokens: 1500 },
+    generationConfig: { temperature: 0.2, maxOutputTokens: 4096 },
   };
 }
 
