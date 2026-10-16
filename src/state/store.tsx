@@ -12,6 +12,7 @@ export interface ChatMessage {
   role: 'user' | 'model';
   text: string;
   error?: boolean;
+  model?: string;
 }
 
 export interface AppState {

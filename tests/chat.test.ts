@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import handler, { buildGeminiBody, handleChat, LIMITS, SYSTEM_PROMPT, validateChatRequest } from '../api/chat';
+import handler, { buildGeminiBody, handleChat, LIMITS, modelPlan, SYSTEM_PROMPT, validateChatRequest } from '../api/chat';
 
 const ENV = { GEMINI_API_KEY: 'test-key', GEMINI_MODEL: '' };
 const okBody = { message: 'Which resource is the biggest bottleneck?', history: [], summary: { scenarios: [] } };
@@ -54,25 +54,29 @@ describe('/api/chat — valid request path (fetch mocked)', () => {
   });
 });
 
-describe('/api/chat — transient upstream errors', () => {
-  it('retries an overloaded model, then falls back to gemini-2.5-flash', async () => {
+describe('/api/chat — rate limits and model fallback', () => {
+  const models = (urls: string[]) => urls.map((u) => u.split('/models/')[1].split(':')[0]);
+  it('moves to the next model on 429 / 503 / 404 and returns the first answer', async () => {
     const urls: string[] = [];
+    const codes = [429, 503, 404];
     const f = vi.fn(async (url: string) => {
       urls.push(url);
-      return urls.length < 3
-        ? { ok: false, status: 503, json: async () => ({}) }
-        : { ok: true, status: 200, json: async () => ({ candidates: [{ content: { parts: [{ text: 'ok' }] } }] }) };
+      const c = codes[urls.length - 1];
+      return c ? { ok: false, status: c, json: async () => ({}) } : { ok: true, status: 200, json: async () => ({ candidates: [{ content: { parts: [{ text: 'ok' }] } }] }) };
     });
     const res = await handleChat(okBody, ENV, f);
-    expect(res).toEqual({ status: 200, body: { reply: 'ok', model: 'gemini-2.5-flash' } });
-    expect(urls.map((u) => u.split('/models/')[1].split(':')[0])).toEqual(['gemini-3.5-flash-lite', 'gemini-3.5-flash-lite', 'gemini-2.5-flash']);
+    expect(models(urls)).toEqual(['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.1-flash-lite']);
+    expect(res).toEqual({ status: 200, body: { reply: 'ok', model: 'gemini-3.1-flash-lite' } });
   });
-  it('gives a clear busy message when every attempt is overloaded', async () => {
-    const f = vi.fn(async () => ({ ok: false, status: 503, json: async () => ({}) }));
+  it('gives a clear busy message when every model is rate-limited', async () => {
+    const f = vi.fn(async () => ({ ok: false, status: 429, json: async () => ({}) }));
     const res = await handleChat(okBody, ENV, f);
-    expect(f).toHaveBeenCalledTimes(3);
-    expect(res.status).toBe(502);
-    expect(res.body).toMatchObject({ code: 'upstream_error', error: expect.stringMatching(/busy/) });
+    expect(f).toHaveBeenCalledTimes(4);
+    expect(res.body).toMatchObject({ code: 'upstream_error', error: expect.stringMatching(/rate-limited/) });
+  });
+  it('honours GEMINI_FALLBACK_MODELS and de-duplicates the primary', () => {
+    expect(modelPlan({ GEMINI_MODEL: 'gemini-3.8-flash', GEMINI_FALLBACK_MODELS: 'gemini-3.8-flash, gemini-3.6-flash ,bad model!' })).toEqual(['gemini-3.8-flash', 'gemini-3.6-flash']);
+    expect(modelPlan({})).toEqual(['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.1-flash-lite']);
   });
 });
 

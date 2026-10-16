@@ -7,7 +7,8 @@
  *   summary  JSON object produced by the app (≤ 30 KB serialised)
  * Anything else is rejected, so the endpoint cannot be used as an open Gemini proxy.
  *
- * Env: GEMINI_API_KEY (required), GEMINI_MODEL (default gemini-3.5-flash-lite).
+ * Env: GEMINI_API_KEY (required), GEMINI_MODEL (default gemini-3.5-flash-lite),
+ *      GEMINI_FALLBACK_MODELS (comma-separated; default gemini-3.8-flash,gemini-3.6-flash,gemini-3.1-flash-lite).
  * Self-contained on purpose: Vercel compiles each API route separately.
  */
 
@@ -92,6 +93,7 @@ export function validateChatRequest(body: unknown): ValidationOutcome {
 export interface ChatEnv {
   GEMINI_API_KEY?: string;
   GEMINI_MODEL?: string;
+  GEMINI_FALLBACK_MODELS?: string;
 }
 
 export interface ChatResponse {
@@ -140,27 +142,34 @@ export async function handleChat(body: unknown, env: ChatEnv, fetchImpl: FetchLi
   const v = validateChatRequest(body);
   if (!v.ok) return { status: v.status, body: { error: v.error, code: 'invalid_request' } };
 
-  const primary = resolveModel(env);
-  // Transient "overloaded" errors are common on Gemini: retry the primary model, then try a fallback.
-  const plan = [primary, primary, ...(primary === FALLBACK_MODEL ? [primary] : [FALLBACK_MODEL])];
+  const plan = modelPlan(env);
   const body2 = JSON.stringify(buildGeminiBody(v.value));
   const deadline = Date.now() + LIMITS.timeoutMs;
   let last: ChatResponse = { status: 502, body: { error: 'Could not reach the language model service.', code: 'network' } };
-  for (let attempt = 0; attempt < plan.length; attempt++) {
-    const remaining = deadline - Date.now();
-    if (remaining < 1000) break;
-    if (attempt > 0) await sleep(Math.min(RETRY_DELAYS_MS[attempt - 1] ?? 1000, remaining / 4));
-    const { response, retryable } = await callGemini(plan[attempt], key, body2, deadline - Date.now(), fetchImpl);
+  // Rate limits (RPM) and "overloaded" errors are per model, so move straight to the next model.
+  for (const model of plan) {
+    if (deadline - Date.now() < 1500) break;
+    const { response, retryable } = await callGemini(model, key, body2, deadline - Date.now(), fetchImpl);
     last = response;
     if (!retryable) return response;
   }
   return last;
 }
 
-export const FALLBACK_MODEL = 'gemini-2.5-flash';
-const RETRY_DELAYS_MS = [600, 1200, 2000];
-const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+/** Fallback models tried in order when the primary is rate-limited, overloaded or unavailable. */
+export const DEFAULT_FALLBACK_MODELS = ['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.1-flash-lite'];
+const MAX_MODELS = 5;
+const MODEL_RE = /^[a-zA-Z0-9.\-_]{1,64}$/;
+// 404/403: model not found or not enabled for this key; 429: rate limit; 5xx: overloaded/transient.
+const RETRYABLE_STATUS = new Set([403, 404, 429, 500, 502, 503, 504]);
+
+/** Primary model, then GEMINI_FALLBACK_MODELS (comma-separated) or the defaults, de-duplicated. */
+export function modelPlan(env: ChatEnv): string[] {
+  const fallbacks = env.GEMINI_FALLBACK_MODELS !== undefined && env.GEMINI_FALLBACK_MODELS.trim() !== ''
+    ? env.GEMINI_FALLBACK_MODELS.split(',').map((m) => m.trim()).filter((m) => MODEL_RE.test(m))
+    : DEFAULT_FALLBACK_MODELS;
+  return [...new Set([resolveModel(env), ...fallbacks])].slice(0, MAX_MODELS);
+}
 
 async function callGemini(model: string, key: string, body: string, budgetMs: number, fetchImpl: FetchLike): Promise<{ response: ChatResponse; retryable: boolean }> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
@@ -179,14 +188,14 @@ async function callGemini(model: string, key: string, body: string, budgetMs: nu
       error?: { message?: string };
     };
     if (!res.ok) {
-      const busy = res.status === 503 || res.status === 429;
+      const busy = res.status === 503 || res.status === 429 || res.status === 404 || res.status === 403;
       return {
         retryable: RETRYABLE_STATUS.has(res.status),
         response: {
           status: 502,
           body: {
             error: busy
-              ? `The language model is busy right now (HTTP ${res.status}). Please try again in a moment.`
+              ? `The language models are busy or rate-limited right now (last: ${model}, HTTP ${res.status}). Please try again in a minute.`
               : `The language model service returned an error (HTTP ${res.status}).`,
             code: 'upstream_error',
           },
@@ -234,6 +243,6 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     res.status(413).json({ error: 'Request body too large.', code: 'invalid_request' });
     return;
   }
-  const out = await handleChat(req.body, { GEMINI_API_KEY: process.env.GEMINI_API_KEY, GEMINI_MODEL: process.env.GEMINI_MODEL });
+  const out = await handleChat(req.body, { GEMINI_API_KEY: process.env.GEMINI_API_KEY, GEMINI_MODEL: process.env.GEMINI_MODEL, GEMINI_FALLBACK_MODELS: process.env.GEMINI_FALLBACK_MODELS });
   res.status(out.status).json(out.body);
 }

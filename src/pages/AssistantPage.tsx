@@ -62,7 +62,7 @@ export function AssistantPage({ go }: PageProps) {
     setLoading(true);
     try {
       const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: msg, history, summary }) });
-      const data = (await res.json().catch(() => null)) as { reply?: string; error?: string; code?: string } | null;
+      const data = (await res.json().catch(() => null)) as { reply?: string; error?: string; code?: string; model?: string } | null;
       if (res.status === 503 && data?.code === 'not_configured') {
         setStatus('not_configured');
         setChat([...next, { role: 'model', text: 'Chat not configured: the server has no GEMINI_API_KEY. All analysis results remain available on the other pages.', error: true }]);
@@ -73,7 +73,7 @@ export function AssistantPage({ go }: PageProps) {
         setChat([...next, { role: 'model', text: data.error ?? `Request failed (HTTP ${res.status}).`, error: true }]);
       } else {
         setStatus('ok');
-        setChat([...next, { role: 'model', text: data.reply }]);
+        setChat([...next, { role: 'model', text: data.reply, model: data.model }]);
       }
     } catch (e) {
       setChat([...next, { role: 'model', text: `Could not reach the chat service: ${e instanceof Error ? e.message : String(e)}`, error: true }]);
@@ -106,6 +106,7 @@ export function AssistantPage({ go }: PageProps) {
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.role === 'user' ? 'rounded-br-md bg-navy-700 text-white' : m.error ? 'rounded-bl-md bg-[#fdf0f0] text-[#9b1c1c] ring-1 ring-[#f2c0c0]' : 'rounded-bl-md bg-plane text-ink ring-1 ring-line'}`}>
                   {m.role === 'model' && !m.error ? <RichText text={m.text} /> : m.text}
+                  {m.model && <div className="mt-1 text-[11px] text-ink-3">{m.model}</div>}
                   {m.error && i === state.chat.length - 1 && <button className="mt-1 block text-xs font-medium underline" onClick={() => { const q = state.chat[i - 1]?.text; setChat(state.chat.slice(0, i - 1)); if (q) void send(q); }}>Retry</button>}
                 </div>
               </div>
