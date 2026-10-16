@@ -1,0 +1,130 @@
+ERMHDR	25.12	2026-10-16	Project	ADMIN	nonga	dbxDatabaseNoName	Project Management	INR
+%T	CURRTYPE
+%F	curr_id	decimal_digit_cnt	curr_symbol	decimal_symbol	digit_group_symbol	pos_curr_fmt_type	neg_curr_fmt_type	curr_type	curr_short_name	group_digit_cnt	base_exch_rate
+%R	1	2	$	.	,	#1.1	(#1.1)	US Dollar	USD	3	1
+%R	13	2	£	.	,	#1.1	(#1.1)	Pound Sterling	GBP	3	0.618603
+%R	14	2	¥	.	,	#1.1	(#1.1)	Japanese Yen	JPY	3	91.2708
+%R	15	2	€	.	,	#1.1	(#1.1)	Euro	EUR	3	0.689711
+%R	16	2	¥	.	,	#1.1	(#1.1)	Chinese Yuan Renminbi	CNY	3	6.82502
+%R	17	2	$	.	,	#1.1	(#1.1)	Canadian Dollar	CAD	3	1.03757
+%R	18	2	RUB	.	,	#1.1	(#1.1)	Russian Ruble	RUB	3	0.033948
+%R	19	2	$	.	,	#1.1	(#1.1)	Argentine Peso	ARS	3	3.79109
+%R	20	2	$b	.	,	#1.1	(#1.1)	Bolivian Boliviano	BOB	3	7.5708
+%R	21	2	R$	.	,	#1.1	(#1.1)	Brazilian Real	BRL	3	1.7665
+%R	22	2	$	.	,	#1.1	(#1.1)	Chilean Peso	CLP	3	507.58
+%R	23	2	$	.	,	#1.1	(#1.1)	Columbian Peso	COP	3	1957.74
+%R	24	2	$	.	,	#1.1	(#1.1)	Guyanese Dollar	GYD	3	202.95
+%R	25	2	Gs	.	,	#1.1	(#1.1)	Paraguayan Guarani	PYG	3	4640
+%R	26	2	S/.	.	,	#1.1	(#1.1)	Peruvian Nuevo Sol	PEN	3	2.7244
+%R	27	2	$	.	,	#1.1	(#1.1)	Surinamese Dollar	SRD	3	2.8
+%R	28	2	Bs	.	,	#1.1	(#1.1)	Venezuelan Bolivar Fuerto	VEF	3	2.1446
+%R	29	2	$U	.	,	#1.1	(#1.1)	Uruguayan Peso	UYU	3	21.247
+%R	30	2	?	.	,	#1.1	(#1.1)	Indian Rupees	INR	3	96
+%T	FINTMPL
+%F	fintmpl_id	fintmpl_name	default_flag
+%R	1	Calendar	Y
+%T	OBS
+%F	obs_id	parent_obs_id	guid	seq_num	obs_name	obs_descr
+%R	540			0	Enterprise	<html>  <head>      </head>  <body bgcolor=""#ffffff"">    Enterprise  </body></html>
+%R	1500	540	p8og8iEQvUChcovxT/5fQg	0	AFS Tambaram Repair Project	
+%T	PROJECT
+%F	proj_id	fy_start_month_num	rsrc_self_add_flag	allow_complete_flag	rsrc_multi_assign_flag	checkout_flag	project_flag	step_complete_flag	cost_qty_recalc_flag	batch_sum_flag	name_sep_char	def_complete_pct_type	proj_short_name	acct_id	orig_proj_id	source_proj_id	base_type_id	clndr_id	sum_base_proj_id	task_code_base	task_code_step	priority_num	wbs_max_sum_level	strgy_priority_num	last_checksum	critical_drtn_hr_cnt	def_cost_per_qty	last_recalc_date	plan_start_date	plan_end_date	scd_end_date	add_date	last_tasksum_date	fcst_start_date	def_duration_type	task_code_prefix	guid	def_qty_type	add_by_name	web_local_root_path	proj_url	def_rate_type	add_act_remain_flag	act_this_per_link_flag	def_task_type	act_pct_link_flag	critical_path_type	task_code_prefix_flag	def_rollup_dates_flag	use_project_baseline_flag	rem_target_link_flag	reset_planned_flag	allow_neg_act_flag	sum_assign_level	last_fin_dates_id	fintmpl_id	last_baseline_update_date	cr_external_key	apply_actuals_date	location_id	last_schedule_date	loaded_scope_level	export_flag	new_fin_dates_id	baselines_to_export	baseline_names_to_export	next_data_date	base_proj_id	base_proj_id1	base_proj_id2	close_period_flag	sum_refresh_date	trsrcsum_loaded	sumtask_loaded
+%R	4518	1	Y	Y	Y	N	Y	N	N	Y	.	CP_Drtn	AFS					6590		1000	10	10	2	500		0	0.0000	2026-10-16 00:00	2026-08-27 00:00			2026-10-16 00:00			DT_FixedDUR2	A	Sb/ehFmXbkiRVzOdiO3oEg	QT_Hour	ADMIN			COST_PER_QTY	N	Y	TT_Task	Y	CT_TotFloat	Y	Y	Y	Y	N	N	SL_Taskrsrc		1						7	Y											
+%T	CALENDAR
+%F	clndr_id	default_flag	clndr_name	proj_id	base_clndr_id	last_chng_date	clndr_type	day_hr_cnt	week_hr_cnt	month_hr_cnt	year_hr_cnt	rsrc_private	clndr_data
+%R	6590	Y	CR Cal			2026-10-16 00:00	CA_Base	8	40	160	1920	N	(0||CalendarData()(  (0||DaysOfWeek()(    (0||1()())    (0||2()(      (0||0(s|09:00|f|13:00)())      (0||1(s|14:00|f|18:00)())))    (0||3()(      (0||0(s|09:00|f|13:00)())      (0||1(s|14:00|f|18:00)())))    (0||4()(      (0||0(s|09:00|f|13:00)())      (0||1(s|14:00|f|18:00)())))    (0||5()(      (0||0(s|09:00|f|13:00)())      (0||1(s|14:00|f|18:00)())))    (0||6()(      (0||0(s|09:00|f|13:00)())      (0||1(s|14:00|f|18:00)())))    (0||7()())))  (0||VIEW(ShowTotal|N)())  (0||Exceptions()(    (0||0(d|40179)())    (0||1(d|40329)())    (0||2(d|40364)())    (0||3(d|40427)())    (0||4(d|40507)())    (0||5(d|40536)())    (0||6(d|40543)())    (0||7(d|40693)())    (0||8(d|40728)())    (0||9(d|40791)())    (0||10(d|40871)())    (0||11(d|40903)())    (0||12(d|40910)())    (0||13(d|41057)())    (0||14(d|41094)())    (0||15(d|41155)())    (0||16(d|41235)())    (0||17(d|41268)())    (0||18(d|41275)())    (0||19(d|41421)())    (0||20(d|41459)())    (0||21(d|41519)())    (0||22(d|41606)())    (0||23(d|41633)())    (0||24(d|46297)())    (0||25(d|46381)())    (0||26(d|46413)())    (0||27(d|47028)())    (0||28(d|47112)())    (0||29(d|47393)())    (0||30(d|47477)())    (0||31(d|47758)())    (0||32(d|47842)())))))
+%T	PROJWBS
+%F	wbs_id	proj_id	obs_id	seq_num	est_wt	proj_node_flag	sum_data_flag	status_code	wbs_short_name	wbs_name	phase_id	parent_wbs_id	ev_user_pct	ev_etc_user_value	orig_cost	indep_remain_total_cost	ann_dscnt_rate_pct	dscnt_period_type	indep_remain_work_qty	anticip_start_date	anticip_end_date	ev_compute_type	ev_etc_compute_type	guid	tmpl_guid	plan_open_state
+%R	26070	4518	1500	10	1	Y	N	WS_Open	AFS	AFS Tambaram – Plumbing, Sanitary & Building Repairs (2026–27).		26069	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	yx0nyQ/1cEyahp9pOr8ozw		
+%R	26071	4518	1500	1	1	N	N	WS_Open	1	Project controls and mobilization		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	N2ZtzPyZSk6oXcxWsQodhQ		
+%R	26073	4518	1500	3	1	N	N	WS_Open	3	Plumbing, water supply and sanitary repairs		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	CM9suIlkR0St8jch+QrFUQ		
+%R	26074	4518	1500	4	1	N	N	WS_Open	4	Sunken floors, seepage treatment and internal finishes		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	Kh3qPVw940+Lf88xxdtRNg		
+%R	26075	4518	1500	5	1	N	N	WS_Open	5	Roof and rainwater repairs		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	kfCnIg1wK02ySg+sDRjuNw		
+%R	26076	4518	1500	6	1	N	N	WS_Open	6	Associated building and metalwork		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	62+fVK3O9keYU8AGPcARRg		
+%R	26077	4518	1500	7	1	N	N	WS_Open	7	Testing, reinstatement and handover		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	63oOtMuXZUqK2zrKyyXu4g		
+%R	26078	4518	1500	2	1	N	N	WS_Open	2	Surveys, access and work-area preparation		26070	6	0.88	0.0000	0.0000						EC_Cmp_pct	EE_Rem_hr	sNkO74r8VUygz8i9LoRhMQ		
+%T	TASK
+%F	task_id	proj_id	wbs_id	clndr_id	phys_complete_pct	rev_fdbk_flag	est_wt	lock_plan_flag	auto_compute_act_flag	complete_pct_type	task_type	duration_type	status_code	task_code	task_name	rsrc_id	total_float_hr_cnt	free_float_hr_cnt	remain_drtn_hr_cnt	act_work_qty	remain_work_qty	target_work_qty	target_drtn_hr_cnt	target_equip_qty	act_equip_qty	remain_equip_qty	cstr_date	act_start_date	act_end_date	late_start_date	late_end_date	expect_end_date	early_start_date	early_end_date	restart_date	reend_date	target_start_date	target_end_date	rem_late_start_date	rem_late_end_date	cstr_type	priority_type	suspend_date	resume_date	float_path	float_path_order	guid	tmpl_guid	cstr_date2	cstr_type2	driving_path_flag	act_this_per_work_qty	act_this_per_equip_qty	external_early_start_date	external_late_end_date	create_date	update_date	create_user	update_user	location_id	crt_path_num
+%R	101873	4518	26071	6590	0	N	0	N	N	CP_Drtn	TT_Mile	DT_FixedDrtn	TK_NotStart	M100	Notice to Proceed / Start milestone				0	0	0	0	0	0	0	0									2026-10-16 09:00	2026-10-16 09:00	2026-10-16 09:00	2026-10-16 09:00				PT_Normal					UIXABllg0kS+Q2shZw1KqQ				N	0	0			2026-10-16 01:35	2026-10-16 01:44	NotPrmUser	NotPrmUser		
+%R	101874	4518	26071	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A110	Mobilize staff, tools, materials and temporary facilities				40	0	0	0	40	0	0	0									2026-08-24 09:00	2026-08-28 18:00	2026-08-24 09:00	2026-08-28 18:00				PT_Normal					6u65fSgLv0yt0qysG/MANA				N	0	0			2026-10-16 01:35	2026-10-16 01:46	NotPrmUser	NotPrmUser		
+%R	101875	4518	26071	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A120	Review specifications, confirm work locations and prepare execution plan				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					2AmFxJjug0Cx4ir7kn5IXA				N	0	0			2026-10-16 01:35	2026-10-16 01:47	NotPrmUser	NotPrmUser		
+%R	101876	4518	26078	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A130	Joint condition survey and identify repair locations				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					17/ZZW+IUEWUfG+frBOu3w				N	0	0			2026-10-16 01:35	2026-10-16 01:37	NotPrmUser	NotPrmUser		
+%R	101877	4518	26078	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A140	Agree access, work sequencing and service shutdowns with occupants / Engineer				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					ZLY2WOOBVUWzOVfj26drEQ				N	0	0			2026-10-16 01:35	2026-10-16 01:48	NotPrmUser	NotPrmUser		
+%R	101878	4518	26078	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A150	Protect occupied areas and establish work zones				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					ex9EZyyNc02WCkoBvt8pKQ				N	0	0			2026-10-16 01:35	2026-10-16 01:48	NotPrmUser	NotPrmUser		
+%R	101879	4518	26078	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A160	Procure and deliver approved materials				80	0	0	0	80	0	0	0									2026-10-16 09:00	2026-10-29 18:00	2026-10-16 09:00	2026-10-29 18:00				PT_Normal					92Tz7KdQsUmiBOjUeF/BPA				N	0	0			2026-10-16 01:35	2026-10-16 01:48	NotPrmUser	NotPrmUser		
+%R	101880	4518	26078	6590	0	N	0	N	N	CP_Drtn	TT_FinMile	DT_FixedDrtn	TK_NotStart	A170	Work areas released and materials available milestone				0	0	0	0	0	0	0	0									2026-10-16 18:00	2026-10-16 18:00	2026-10-16 18:00	2026-10-16 18:00				PT_Normal					yqN10TiqEEWPwHpMd3kGTg				N	0	0			2026-10-16 01:35	2026-10-16 01:37	NotPrmUser	NotPrmUser		
+%R	101881	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A210	Isolate services and take down defective / redundant pipework and fittings				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					COcSYmY6y0uBtmY9wL73ug				N	0	0			2026-10-16 01:35	2026-10-16 01:38	NotPrmUser	NotPrmUser		
+%R	101882	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A220	Open chases and make local openings for concealed pipework				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					fXqQE1qjMEinQCCPVbLrYw				N	0	0			2026-10-16 01:35	2026-10-16 01:38	NotPrmUser	NotPrmUser		
+%R	101883	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A230	Replace / refix internal water-supply pipework, valves and connections				80	0	0	0	80	0	0	0									2026-10-16 09:00	2026-10-29 18:00	2026-10-16 09:00	2026-10-29 18:00				PT_Normal					yQ+YcbzB3kCSLs/GqsuH0A				N	0	0			2026-10-16 01:35	2026-10-16 01:48	NotPrmUser	NotPrmUser		
+%R	101884	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A240	Repair / replace tanks, tank connections and clean tanks / lines				56	0	0	0	56	0	0	0									2026-10-16 09:00	2026-10-26 18:00	2026-10-16 09:00	2026-10-26 18:00				PT_Normal					xeu7x5UJUEO5azc1avSjWg				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101885	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A250	Replace / repair soil, waste, vent and rainwater pipework and fittings				80	0	0	0	80	0	0	0									2026-10-16 09:00	2026-10-29 18:00	2026-10-16 09:00	2026-10-29 18:00				PT_Normal					6tyXP4uaE0S+nz23SD/9Og				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101886	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A260	Repair / replace sanitary fixtures and accessories by area				80	0	0	0	80	0	0	0									2026-10-16 09:00	2026-10-29 18:00	2026-10-16 09:00	2026-10-29 18:00				PT_Normal					zK3qbTJkt02e+fCws/iLbA				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101887	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A270	Pressure, flow and drainage tests; rectify plumbing defects				32	0	0	0	32	0	0	0									2026-10-16 09:00	2026-10-21 18:00	2026-10-16 09:00	2026-10-21 18:00				PT_Normal					MWcYh6sPjUCxn6SF96uJ7Q				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101888	4518	26073	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A280	Close chases and make good disturbed masonry / plaster				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					1fkpyES7D0u196jl5x5M3w				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101889	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A310	Remove defective floor / wall finishes and loose material in wet areas				56	0	0	0	56	0	0	0									2026-10-16 09:00	2026-10-26 18:00	2026-10-16 09:00	2026-10-26 18:00				PT_Normal					MwFhN8pJKEisQaXFCeRR5g				N	0	0			2026-10-16 01:35	2026-10-16 01:49	NotPrmUser	NotPrmUser		
+%R	101890	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A320	Remove damaged sunken-slab treatment and prepare substrate				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					QhHJm72IQkWvqV5+MkUXvA				N	0	0			2026-10-16 01:35	2026-10-16 01:39	NotPrmUser	NotPrmUser		
+%R	101891	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A330	Repair cracks, joints, outlets and local concrete / plaster defects				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					zqlP90J2IUigMEw5VJMpAw				N	0	0			2026-10-16 01:35	2026-10-16 01:39	NotPrmUser	NotPrmUser		
+%R	101892	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A340	Apply specified sunken-slab waterproofing system				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					a6Cjl5u33U6cMKWh8kRp7A				N	0	0			2026-10-16 01:35	2026-10-16 01:39	NotPrmUser	NotPrmUser		
+%R	101893	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A350	Water ponding / seepage test and rectify if required				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					Q4YdKCEPG0qIoNmj3bDQAA				N	0	0			2026-10-16 01:35	2026-10-16 01:50	NotPrmUser	NotPrmUser		
+%R	101894	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A360	Complete filling, screed / bedding and substrate preparation				56	0	0	0	56	0	0	0									2026-10-16 09:00	2026-10-26 18:00	2026-10-16 09:00	2026-10-26 18:00				PT_Normal					bI8H5kKmzUGrQ9hE193Kyw				N	0	0			2026-10-16 01:35	2026-10-16 01:50	NotPrmUser	NotPrmUser		
+%R	101895	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A370	Lay floor tiles and wall dado / skirting finishes				80	0	0	0	80	0	0	0									2026-10-16 09:00	2026-10-29 18:00	2026-10-16 09:00	2026-10-29 18:00				PT_Normal					YXj3EIjNWEKw5tb/vT5ggQ				N	0	0			2026-10-16 01:36	2026-10-16 01:52	NotPrmUser	NotPrmUser		
+%R	101896	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A380	Re-plaster and prepare repaired wall / ceiling surfaces				56	0	0	0	56	0	0	0									2026-10-16 09:00	2026-10-26 18:00	2026-10-16 09:00	2026-10-26 18:00				PT_Normal					7wm95XfM70acbEK1VjXfZQ				N	0	0			2026-10-16 01:36	2026-10-16 01:52	NotPrmUser	NotPrmUser		
+%R	101897	4518	26074	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A390	Apply paint, distemper or whitewash to prepared surfaces				48	0	0	0	48	0	0	0									2026-10-16 09:00	2026-10-23 18:00	2026-10-16 09:00	2026-10-23 18:00				PT_Normal					naCTEUMTeEKXyJL278KxEQ				N	0	0			2026-10-16 01:36	2026-10-16 01:53	NotPrmUser	NotPrmUser		
+%R	101898	4518	26075	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A410	Remove defective roof treatment and clean roof surfaces				32	0	0	0	32	0	0	0									2026-10-16 09:00	2026-10-21 18:00	2026-10-16 09:00	2026-10-21 18:00				PT_Normal					A/CMIYzXr0WoX6wdzcTmNQ				N	0	0			2026-10-16 01:36	2026-10-16 01:53	NotPrmUser	NotPrmUser		
+%R	101899	4518	26075	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A420	Repair roof substrate, fillets, screed and local concrete				40	0	0	0	40	0	0	0									2026-10-16 00:00	2026-10-22 18:00	2026-10-16 00:00	2026-10-22 18:00				PT_Normal					Hi5BYxMRykSu5/9oLlSqhQ				N	0	0			2026-10-16 01:36	2026-10-16 01:40	NotPrmUser	NotPrmUser		
+%R	101900	4518	26075	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A430	Apply roof waterproofing / membrane and treat joints				48	0	0	0	48	0	0	0									2026-10-16 09:00	2026-10-23 18:00	2026-10-16 09:00	2026-10-23 18:00				PT_Normal					9d1StTiR102+K2cO0hEi9A				N	0	0			2026-10-16 01:36	2026-10-16 01:53	NotPrmUser	NotPrmUser		
+%R	101901	4518	26075	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A440	Roof water test and rectify leaks				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					51bP4UDD/EK3Man1QX0GTA				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101902	4518	26076	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A510	Complete minor associated masonry, door / frame, granite and metalwork repairs				64	0	0	0	64	0	0	0									2026-10-16 09:00	2026-10-27 18:00	2026-10-16 09:00	2026-10-27 18:00				PT_Normal					ps5ueg3AC0KgAQ1EUeZoKw				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101903	4518	26076	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A520	Prepare and paint repaired metalwork				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					+rBkdymp2EG7vOOi4ncCxA				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101904	4518	26077	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A610	Final clean, remove debris and reinstate work areas				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					I51YEKVuw0G+BxpWLQaLrA				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101905	4518	26077	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A620	Joint inspection and close punch-list items				24	0	0	0	24	0	0	0									2026-10-16 09:00	2026-10-20 18:00	2026-10-16 09:00	2026-10-20 18:00				PT_Normal					IcubMa6ksEu155HUTcnwLw				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101906	4518	26077	6590	0	N	1	N	N	CP_Drtn	TT_Task	DT_FixedDUR2	TK_NotStart	A630	Submit test records, completion documents and hand over				16	0	0	0	16	0	0	0									2026-10-16 09:00	2026-10-19 18:00	2026-10-16 09:00	2026-10-19 18:00				PT_Normal					fY3cGRLlFkK56AWHqT7sxw				N	0	0			2026-10-16 01:36	2026-10-16 01:54	NotPrmUser	NotPrmUser		
+%R	101907	4518	26077	6590	0	N	0	N	N	CP_Drtn	TT_FinMile	DT_FixedDrtn	TK_NotStart	M199	Practical Completion / Handover milestone				0	0	0	0	0	0	0	0									2026-10-16 18:00	2026-10-16 18:00	2026-10-16 18:00	2026-10-16 18:00				PT_Normal					ag3clFbrgU2iRGvTflzcqg				N	0	0			2026-10-16 01:36	2026-10-16 01:44	NotPrmUser	NotPrmUser		
+%T	TASKPRED
+%F	task_pred_id	task_id	pred_task_id	proj_id	pred_proj_id	pred_type	lag_hr_cnt	comments	float_path	aref	arls
+%R	40836	101874	101873	4518	4518	PR_FS	0			2026-10-16 09:00	
+%R	40837	101875	101873	4518	4518	PR_FS	0			2026-10-16 09:00	
+%R	40839	101876	101875	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40840	101877	101876	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40841	101878	101877	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40842	101879	101876	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40843	101880	101878	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40844	101880	101879	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40845	101881	101880	4518	4518	PR_FS	0			2026-10-16 18:00	
+%R	40846	101882	101881	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40847	101883	101882	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40848	101884	101881	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40849	101885	101881	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40850	101886	101883	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40851	101886	101885	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40852	101887	101883	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40853	101887	101884	4518	4518	PR_FS	0			2026-10-26 18:00	
+%R	40854	101887	101885	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40855	101887	101886	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40856	101888	101887	4518	4518	PR_FS	0			2026-10-21 18:00	
+%R	40858	101890	101889	4518	4518	PR_FS	0			2026-10-26 18:00	
+%R	40859	101889	101880	4518	4518	PR_FS	0			2026-10-16 18:00	
+%R	40860	101891	101890	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40861	101892	101891	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40862	101892	101887	4518	4518	PR_FS	0			2026-10-21 18:00	
+%R	40863	101893	101892	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40864	101894	101893	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40865	101895	101894	4518	4518	PR_FS	0			2026-10-26 18:00	
+%R	40866	101895	101888	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40867	101896	101888	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40868	101897	101896	4518	4518	PR_FS	0			2026-10-26 18:00	
+%R	40869	101898	101880	4518	4518	PR_FS	0			2026-10-16 18:00	
+%R	40870	101899	101898	4518	4518	PR_FS	0			2026-10-21 18:00	
+%R	40871	101900	101899	4518	4518	PR_FS	0			2026-10-22 18:00	
+%R	40872	101901	101900	4518	4518	PR_FS	0			2026-10-23 18:00	
+%R	40873	101902	101880	4518	4518	PR_FS	0			2026-10-16 18:00	
+%R	40874	101903	101902	4518	4518	PR_FS	0			2026-10-27 18:00	
+%R	40875	101904	101887	4518	4518	PR_FS	0			2026-10-21 18:00	
+%R	40876	101904	101895	4518	4518	PR_FS	0			2026-10-29 18:00	
+%R	40877	101904	101897	4518	4518	PR_FS	0			2026-10-23 18:00	
+%R	40878	101904	101901	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40879	101904	101903	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40880	101905	101904	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40881	101906	101905	4518	4518	PR_FS	0			2026-10-20 18:00	
+%R	40882	101907	101906	4518	4518	PR_FS	0			2026-10-19 18:00	
+%E
