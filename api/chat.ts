@@ -29,7 +29,7 @@ Rules you must follow:
 1. Use ONLY the numbers, dates, names and results contained in the DATA SUMMARY provided with each question. Every figure in that summary was computed deterministically by the app (parser, CPM, conflict detection, serial schedule generation scheme). Quote them exactly.
 2. Never compute, estimate or invent new allocations, dates, costs, durations or resource numbers. Do not propose a schedule of your own. If a user asks for something the summary does not contain, say clearly that the data is not available in the current results and, where helpful, say which input (e.g. capacity, cost rate, deadline, resource assignments) the user would need to provide in the app.
 3. If the summary flags missing or assumed data (for example demo resource loading that does not come from the XER files, missing capacities, missing deadlines, or projects whose baseline was computed by CPM), mention it when it affects the answer.
-4. Never claim all deadlines are met unless the summary shows zero deadline violations for the scenario being discussed.
+4. Never claim all deadlines are met unless the summary shows zero deadline violations for the scenario being discussed. A project with no deadline set has not "met" a deadline: say explicitly that it has no deadline, so the question cannot be answered for it until the user sets one in Optimization Settings.
 5. Explain reasons in plain language a site or project manager understands: resource over-allocation, float, critical activities, logic (predecessors), hiring and transfers between projects.
 6. Be concise: short paragraphs or bullet points, dates as written in the summary, currency as given. Answer in the language of the question.`;
 
@@ -140,15 +140,37 @@ export async function handleChat(body: unknown, env: ChatEnv, fetchImpl: FetchLi
   const v = validateChatRequest(body);
   if (!v.ok) return { status: v.status, body: { error: v.error, code: 'invalid_request' } };
 
-  const model = resolveModel(env);
+  const primary = resolveModel(env);
+  // Transient "overloaded" errors are common on Gemini: retry the primary model, then try a fallback.
+  const plan = [primary, primary, ...(primary === FALLBACK_MODEL ? [primary] : [FALLBACK_MODEL])];
+  const body2 = JSON.stringify(buildGeminiBody(v.value));
+  const deadline = Date.now() + LIMITS.timeoutMs;
+  let last: ChatResponse = { status: 502, body: { error: 'Could not reach the language model service.', code: 'network' } };
+  for (let attempt = 0; attempt < plan.length; attempt++) {
+    const remaining = deadline - Date.now();
+    if (remaining < 1000) break;
+    if (attempt > 0) await sleep(Math.min(RETRY_DELAYS_MS[attempt - 1] ?? 1000, remaining / 4));
+    const { response, retryable } = await callGemini(plan[attempt], key, body2, deadline - Date.now(), fetchImpl);
+    last = response;
+    if (!retryable) return response;
+  }
+  return last;
+}
+
+export const FALLBACK_MODEL = 'gemini-2.5-flash';
+const RETRY_DELAYS_MS = [600, 1200, 2000];
+const RETRYABLE_STATUS = new Set([429, 500, 502, 503, 504]);
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+async function callGemini(model: string, key: string, body: string, budgetMs: number, fetchImpl: FetchLike): Promise<{ response: ChatResponse; retryable: boolean }> {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
   const controller = typeof AbortController !== 'undefined' ? new AbortController() : undefined;
-  const timer = controller ? setTimeout(() => controller.abort(), LIMITS.timeoutMs) : undefined;
+  const timer = controller ? setTimeout(() => controller.abort(), Math.max(1000, budgetMs)) : undefined;
   try {
     const res = await fetchImpl(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-      body: JSON.stringify(buildGeminiBody(v.value)),
+      body,
       signal: controller?.signal,
     });
     const data = (await res.json().catch(() => ({}))) as {
@@ -157,17 +179,32 @@ export async function handleChat(body: unknown, env: ChatEnv, fetchImpl: FetchLi
       error?: { message?: string };
     };
     if (!res.ok) {
-      return { status: 502, body: { error: `The language model service returned an error (HTTP ${res.status}).`, code: 'upstream_error' } };
+      const busy = res.status === 503 || res.status === 429;
+      return {
+        retryable: RETRYABLE_STATUS.has(res.status),
+        response: {
+          status: 502,
+          body: {
+            error: busy
+              ? `The language model is busy right now (HTTP ${res.status}). Please try again in a moment.`
+              : `The language model service returned an error (HTTP ${res.status}).`,
+            code: 'upstream_error',
+          },
+        },
+      };
     }
     if (data.promptFeedback?.blockReason) {
-      return { status: 502, body: { error: `The request was blocked by the model (${data.promptFeedback.blockReason}).`, code: 'blocked' } };
+      return { retryable: false, response: { status: 502, body: { error: `The request was blocked by the model (${data.promptFeedback.blockReason}).`, code: 'blocked' } } };
     }
     const text = (data.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? '').join('').trim();
-    if (!text) return { status: 502, body: { error: 'The model returned an empty answer.', code: 'empty' } };
-    return { status: 200, body: { reply: text, model } };
+    if (!text) return { retryable: true, response: { status: 502, body: { error: 'The model returned an empty answer.', code: 'empty' } } };
+    return { retryable: false, response: { status: 200, body: { reply: text, model } } };
   } catch (e) {
     const aborted = e instanceof Error && e.name === 'AbortError';
-    return { status: aborted ? 504 : 502, body: { error: aborted ? 'The model took too long to answer.' : 'Could not reach the language model service.', code: aborted ? 'timeout' : 'network' } };
+    return {
+      retryable: !aborted,
+      response: { status: aborted ? 504 : 502, body: { error: aborted ? 'The model took too long to answer.' : 'Could not reach the language model service.', code: aborted ? 'timeout' : 'network' } },
+    };
   } finally {
     if (timer) clearTimeout(timer);
   }

@@ -39,16 +39,40 @@ describe('/api/chat — valid request path (fetch mocked)', () => {
     expect(SYSTEM_PROMPT).toMatch(/ONLY the numbers/);
     expect(SYSTEM_PROMPT).toMatch(/Never compute, estimate or invent/);
     expect(SYSTEM_PROMPT).toMatch(/data is not available/);
+    expect(SYSTEM_PROMPT).toMatch(/no deadline set has not "met" a deadline/);
     expect(buildGeminiBody({ message: 'q', history: [], summary: {} }).generationConfig.temperature).toBeLessThanOrEqual(0.3);
   });
 
   it('maps upstream errors, blocks and timeouts to clear errors', async () => {
-    const err = vi.fn(async () => ({ ok: false, status: 429, json: async () => ({ error: { message: 'quota' } }) }));
+    const err = vi.fn(async () => ({ ok: false, status: 400, json: async () => ({ error: { message: 'bad' } }) }));
     expect((await handleChat(okBody, ENV, err)).status).toBe(502);
+    expect(err).toHaveBeenCalledTimes(1); // non-transient errors are not retried
     const blocked = vi.fn(async () => ({ ok: true, status: 200, json: async () => ({ promptFeedback: { blockReason: 'SAFETY' } }) }));
     expect((await handleChat(okBody, ENV, blocked)).body).toMatchObject({ code: 'blocked' });
     const abort = vi.fn(async () => { const e = new Error('aborted'); e.name = 'AbortError'; throw e; });
     expect((await handleChat(okBody, ENV, abort)).status).toBe(504);
+  });
+});
+
+describe('/api/chat — transient upstream errors', () => {
+  it('retries an overloaded model, then falls back to gemini-2.5-flash', async () => {
+    const urls: string[] = [];
+    const f = vi.fn(async (url: string) => {
+      urls.push(url);
+      return urls.length < 3
+        ? { ok: false, status: 503, json: async () => ({}) }
+        : { ok: true, status: 200, json: async () => ({ candidates: [{ content: { parts: [{ text: 'ok' }] } }] }) };
+    });
+    const res = await handleChat(okBody, ENV, f);
+    expect(res).toEqual({ status: 200, body: { reply: 'ok', model: 'gemini-2.5-flash' } });
+    expect(urls.map((u) => u.split('/models/')[1].split(':')[0])).toEqual(['gemini-3.5-flash-lite', 'gemini-3.5-flash-lite', 'gemini-2.5-flash']);
+  });
+  it('gives a clear busy message when every attempt is overloaded', async () => {
+    const f = vi.fn(async () => ({ ok: false, status: 503, json: async () => ({}) }));
+    const res = await handleChat(okBody, ENV, f);
+    expect(f).toHaveBeenCalledTimes(3);
+    expect(res.status).toBe(502);
+    expect(res.body).toMatchObject({ code: 'upstream_error', error: expect.stringMatching(/busy/) });
   });
 });
 
