@@ -5,7 +5,9 @@ const localChromium = '/opt/pw-browsers/chromium';
 
 export default defineConfig({
   testDir: './e2e',
+  outputDir: 'test-results/artifacts',
   timeout: 120000,
+  reporter: [['list'], ['json', { outputFile: 'test-results/playwright.json' }]],
   use: {
     baseURL: 'http://localhost:4173',
     acceptDownloads: true,

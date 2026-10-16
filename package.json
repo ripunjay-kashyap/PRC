@@ -12,8 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
-    "findings": "vite-node scripts/xer-findings.ts",
-    "report": "vite-node scripts/test-report.ts"
+    "findings": "vite-node scripts/table-inventory.ts",
+    "report": "npm run typecheck && npm run lint && npm run build && vitest run --reporter=default --reporter=json --outputFile.json=test-results/vitest.json && playwright test && vite-node scripts/test-report.ts"
   },
   "dependencies": {
     "exceljs": "^4.4.0",
