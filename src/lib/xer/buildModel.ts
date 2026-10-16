@@ -9,7 +9,6 @@ import type {
   Activity,
   ActivityKind,
   ActivityStatus,
-  Assignment,
   Calendar,
   DataIssue,
   FileSummary,

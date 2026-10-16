@@ -1,0 +1,115 @@
+# ILLUSTRATIVE DEMO RESOURCE LOADING - NOT FROM THE XER FILES (they contain no RSRC/TASKRSRC/RSRCRATE tables).
+# Crew sizes, capacities (max_units) and cost rates (INR per unit-day) are invented for demonstration only.
+project,activity_code,resource_name,resource_type,units_per_day,max_units,cost_per_unit_day
+AFS.xer,A110,Site Engineer,labor,1,1,3500
+AFS.xer,A110,Helper,labor,4,5,700
+AFS.xer,A120,Site Engineer,labor,1,1,3500
+AFS.xer,A130,Site Engineer,labor,1,1,3500
+AFS.xer,A130,Helper,labor,1,5,700
+AFS.xer,A140,Site Engineer,labor,1,1,3500
+AFS.xer,A150,Helper,labor,3,5,700
+AFS.xer,A210,Plumber,labor,2,3,1200
+AFS.xer,A210,Helper,labor,2,5,700
+AFS.xer,A220,Mason,labor,2,3,1100
+AFS.xer,A220,Helper,labor,2,5,700
+AFS.xer,A230,Plumber,labor,3,3,1200
+AFS.xer,A230,Helper,labor,2,5,700
+AFS.xer,A240,Plumber,labor,2,3,1200
+AFS.xer,A240,Helper,labor,1,5,700
+AFS.xer,A250,Plumber,labor,2,3,1200
+AFS.xer,A250,Helper,labor,2,5,700
+AFS.xer,A260,Plumber,labor,2,3,1200
+AFS.xer,A260,Helper,labor,1,5,700
+AFS.xer,A270,Plumber,labor,1,3,1200
+AFS.xer,A270,Site Engineer,labor,1,1,3500
+AFS.xer,A280,Mason,labor,2,3,1100
+AFS.xer,A280,Helper,labor,2,5,700
+AFS.xer,A310,Mason,labor,1,3,1100
+AFS.xer,A310,Helper,labor,3,5,700
+AFS.xer,A320,Mason,labor,1,3,1100
+AFS.xer,A320,Helper,labor,3,5,700
+AFS.xer,A330,Mason,labor,2,3,1100
+AFS.xer,A330,Helper,labor,1,5,700
+AFS.xer,A330,Concrete Mixer,equipment,1,1,2500
+AFS.xer,A340,Waterproofing Applicator,labor,2,2,1300
+AFS.xer,A340,Helper,labor,1,5,700
+AFS.xer,A350,Waterproofing Applicator,labor,1,2,1300
+AFS.xer,A360,Mason,labor,2,3,1100
+AFS.xer,A360,Helper,labor,2,5,700
+AFS.xer,A360,Concrete Mixer,equipment,1,1,2500
+AFS.xer,A370,Tiler,labor,3,3,1200
+AFS.xer,A370,Helper,labor,2,5,700
+AFS.xer,A370,Ceramic Tiles (sqm),material,25,,
+AFS.xer,A380,Mason,labor,2,3,1100
+AFS.xer,A380,Helper,labor,1,5,700
+AFS.xer,A390,Painter,labor,3,3,1000
+AFS.xer,A410,Helper,labor,3,5,700
+AFS.xer,A420,Mason,labor,2,3,1100
+AFS.xer,A420,Helper,labor,2,5,700
+AFS.xer,A420,Concrete Mixer,equipment,1,1,2500
+AFS.xer,A430,Waterproofing Applicator,labor,2,2,1300
+AFS.xer,A430,Helper,labor,1,5,700
+AFS.xer,A440,Waterproofing Applicator,labor,1,2,1300
+AFS.xer,A510,Mason,labor,1,3,1100
+AFS.xer,A510,Welder / Fabricator,labor,1,1,1200
+AFS.xer,A510,Helper,labor,1,5,700
+AFS.xer,A520,Painter,labor,1,3,1000
+AFS.xer,A610,Helper,labor,4,5,700
+AFS.xer,A620,Site Engineer,labor,1,1,3500
+AFS.xer,A630,Site Engineer,labor,1,1,3500
+AFS_scheduled.xer,A110,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A110,Helpers / Mazdoor,labor,4,5,700
+AFS_scheduled.xer,A120,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A130,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A130,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A140,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A150,Helpers / Mazdoor,labor,3,5,700
+AFS_scheduled.xer,A210,PLUMBER (AFS_scheduled),labor,2,3,1200
+AFS_scheduled.xer,A210,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A220,Masons,labor,2,2,1100
+AFS_scheduled.xer,A220,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A230,PLUMBER (AFS_scheduled),labor,3,3,1200
+AFS_scheduled.xer,A230,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A240,PLUMBER (AFS_scheduled),labor,2,3,1200
+AFS_scheduled.xer,A240,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A250,PLUMBER (AFS_scheduled),labor,2,3,1200
+AFS_scheduled.xer,A250,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A260,PLUMBER (AFS_scheduled),labor,2,3,1200
+AFS_scheduled.xer,A260,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A270,PLUMBER (AFS_scheduled),labor,1,3,1200
+AFS_scheduled.xer,A270,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A280,Masons,labor,2,2,1100
+AFS_scheduled.xer,A280,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A310,Masons,labor,1,2,1100
+AFS_scheduled.xer,A310,Helpers / Mazdoor,labor,3,5,700
+AFS_scheduled.xer,A320,Masons,labor,1,2,1100
+AFS_scheduled.xer,A320,Helpers / Mazdoor,labor,3,5,700
+AFS_scheduled.xer,A330,Masons,labor,2,2,1100
+AFS_scheduled.xer,A330,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A330,Concrete Mixer Machine,equipment,1,1,2500
+AFS_scheduled.xer,A340,Waterproofing Crew,labor,2,2,1300
+AFS_scheduled.xer,A340,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A350,Waterproofing Crew,labor,1,2,1300
+AFS_scheduled.xer,A360,Masons,labor,2,2,1100
+AFS_scheduled.xer,A360,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A360,Concrete Mixer Machine,equipment,1,1,2500
+AFS_scheduled.xer,A370,Tilers,labor,3,2,1200
+AFS_scheduled.xer,A370,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A370,Ceramic Tiles (sqm),material,25,,
+AFS_scheduled.xer,A380,Masons,labor,2,2,1100
+AFS_scheduled.xer,A380,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A390,Painter - Sched,labor,3,2,1000
+AFS_scheduled.xer,A410,Helpers / Mazdoor,labor,3,5,700
+AFS_scheduled.xer,A420,Masons,labor,2,2,1100
+AFS_scheduled.xer,A420,Helpers / Mazdoor,labor,2,5,700
+AFS_scheduled.xer,A420,Concrete Mixer Machine,equipment,1,1,2500
+AFS_scheduled.xer,A430,Waterproofing Crew,labor,2,2,1300
+AFS_scheduled.xer,A430,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A440,Waterproofing Crew,labor,1,2,1300
+AFS_scheduled.xer,A510,Masons,labor,1,2,1100
+AFS_scheduled.xer,A510,Fabricator,labor,1,1,1200
+AFS_scheduled.xer,A510,Helpers / Mazdoor,labor,1,5,700
+AFS_scheduled.xer,A520,Painter - Sched,labor,1,2,1000
+AFS_scheduled.xer,A610,Helpers / Mazdoor,labor,4,5,700
+AFS_scheduled.xer,A620,Site Engineer - AFS Sched,labor,1,1,3500
+AFS_scheduled.xer,A630,Site Engineer - AFS Sched,labor,1,1,3500
