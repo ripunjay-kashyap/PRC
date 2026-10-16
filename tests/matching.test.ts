@@ -15,6 +15,8 @@ describe('resource name normalisation', () => {
     expect(normalizeName('Masons')).toBe('mason');
     expect(normalizeName('Helpers / Mazdoor')).toBe('helper');
     expect(normalizeName('Waterproofing Crew')).toBe('waterproofing');
+    expect(normalizeName('Crew')).toBe('crew'); // stop-word-only names are kept
+    expect(similarity('Crew', 'Crew - Project B', tokens)).toBe(1);
   });
   it('strips project suffixes', () => {
     expect(normalizeName('Excavator Operator - Project B', tokens)).toBe('excavator operator');

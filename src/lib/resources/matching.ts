@@ -70,9 +70,11 @@ export function normalizeTokens(name: string, tokens: Set<string> = new Set()): 
   }
   // Trailing "project b" / "proj 2" without a dash
   s = s.replace(/\b(project|proj|prj)\s+[a-z0-9]+\s*$/, ' ');
+  const words = s.split(/[^a-z0-9]+/).filter(Boolean);
+  // A name made only of stop-words ("Crew") keeps them, otherwise it could never match anything.
+  const kept = words.some((w) => !STOPWORDS.has(w)) ? words.filter((w) => !STOPWORDS.has(w)) : words;
   const out: string[] = [];
-  for (const raw of s.split(/[^a-z0-9]+/)) {
-    if (!raw || STOPWORDS.has(raw)) continue;
+  for (const raw of kept) {
     const t = SYNONYMS[raw] ?? stem(SYNONYMS[stem(raw)] ?? raw);
     if (!out.includes(t)) out.push(t);
   }
