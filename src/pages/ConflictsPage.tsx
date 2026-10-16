@@ -26,7 +26,7 @@ export function ConflictsPage({ go }: PageProps) {
 
   return (
     <div>
-      <PageHeader title="Conflict analysis" subtitle="Daily demand of every pooled resource group across all projects (baseline dates) against its capacity." />
+      <PageHeader eyebrow="Step 4 · Conflicts" title="Conflict analysis" subtitle="Daily demand of every pooled resource group across all projects (baseline dates) against its capacity." />
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatTile label="Over-allocated groups" value={`${overGroups.length} / ${conflicts.length}`} tone={overGroups.length ? 'bad' : 'good'} hint={overGroups.length ? overGroups.map((c) => c.name).join(', ') : 'no conflicts'} />
         <StatTile label="Peak over-allocation" value={fmtNum(Math.max(0, ...conflicts.map((c) => c.peakOver)), 2)} hint="units above capacity on the worst day" tone={overGroups.length ? 'bad' : 'neutral'} />

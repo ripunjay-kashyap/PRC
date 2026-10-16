@@ -71,7 +71,7 @@ export function Gantt({ activities, start, finish, projectNames, onlyShifted = f
                     </>
                   )}
                   {hover === i && (
-                    <div className="pointer-events-none absolute left-1/2 top-[30px] z-20 w-72 -translate-x-1/2 rounded-lg bg-white p-2.5 text-xs shadow-card">
+                    <div className="pointer-events-none absolute left-1/2 top-[30px] z-20 w-72 -translate-x-1/2 rounded-lg bg-white p-2.5 text-xs shadow-pop">
                       <div className="font-semibold">{a.projectName} · {a.code}</div>
                       <div className="text-ink-2">{a.name}</div>
                       <div className="mt-1 grid grid-cols-2 gap-x-2 tabular">

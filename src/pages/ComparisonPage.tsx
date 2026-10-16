@@ -14,7 +14,7 @@ export function ComparisonPage({ go }: PageProps) {
   const groups = analysis.groups;
   return (
     <div>
-      <PageHeader title="Project comparison" subtitle="Durations, size, resource needs and the period in which the projects compete for resources (baseline dates)." />
+      <PageHeader eyebrow="Step 2 · Compare" title="Project comparison" subtitle="Durations, size, resource needs and the period in which the projects compete for resources (baseline dates)." />
       <div className="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatTile label="Projects" value={cmp.projects.length} hint={`${state.model.files.length} file(s)`} />
         <StatTile label="Activities" value={fmtNum(analysis.activities.length)} hint={`${analysis.activities.filter((a) => a.totalFloat <= 0).length} critical (float ≤ 0)`} />

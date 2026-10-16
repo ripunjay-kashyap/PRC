@@ -37,7 +37,7 @@ export function ScenariosPage({ go }: PageProps) {
       {state.optStatus === 'running' ? <Spinner label="Optimizing…" /> : opt ? 'Re-run optimization' : 'Run optimization'}
     </button>
   );
-  const header = <PageHeader title="Scenarios & recommendations" subtitle="Six resource strategies evaluated against the same hard constraints, with the recommended changes for the selected one." actions={runBtn} />;
+  const header = <PageHeader eyebrow="Step 6 · Optimize" title="Scenarios & recommendations" subtitle="Six resource strategies evaluated against the same hard constraints, with the recommended changes for the selected one." actions={runBtn} />;
   if (!opt)
     return (
       <div>
@@ -64,7 +64,7 @@ export function ScenariosPage({ go }: PageProps) {
       <Card className="mb-6" title="Scenario comparison" subtitle={`Total optimizer runtime ${fmtNum(opt.totalRuntimeMs, 0)} ms. Select a row for details. ★ = recommended (lowest Z among feasible, capacity-respecting scenarios).`} bodyClass="p-0">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-line text-sm" data-testid="scenario-table">
-            <thead className="bg-[#f6f6f3]">
+            <thead className="bg-plane">
               <tr>
                 {['Scenario', 'Constraints', 'Peak over', 'Avg util.', 'Resource cost', 'Transfers', 'Hire cost', 'Total cost', 'Deadlines missed', 'Idle unit-days', 'Finish (per project)', 'Z', 'Runtime'].map((h) => <th key={h} className="th">{h}</th>)}
               </tr>
@@ -74,7 +74,7 @@ export function ScenariosPage({ go }: PageProps) {
                 const mm = s.metrics;
                 const active = s.id === sel.id;
                 return (
-                  <tr key={s.id} onClick={() => selectScenario(s.id)} className={`cursor-pointer ${active ? 'bg-navy-50' : 'hover:bg-[#fafaf7]'}`} aria-selected={active}>
+                  <tr key={s.id} onClick={() => selectScenario(s.id)} className={`cursor-pointer ${active ? 'bg-[#eff6ff] shadow-[inset_3px_0_0_#2563eb]' : 'hover:bg-plane'}`} aria-selected={active}>
                     <td className="td whitespace-nowrap font-medium">{rec?.id === s.id && <span title="Recommended" className="mr-1 text-accent">★</span>}{s.name}</td>
                     <td className="td">{s.validation.ok ? <Badge tone="good">✓ satisfied</Badge> : <Badge tone="bad">{mm.constraintViolations} violations</Badge>}{!s.enforcesCapacity && <div className="mt-0.5 text-[11px] text-ink-3">capacity not enforced</div>}</td>
                     <td className="td tabular">{mm.peakOverallocation > 0 ? <span className="font-medium text-[#9b1c1c]">{fmtNum(mm.peakOverallocation, 2)}</span> : '0'}</td>
@@ -136,9 +136,9 @@ export function ScenariosPage({ go }: PageProps) {
         <StatTile label="Peak over-allocation" value={fmtNum(sel.metrics.peakOverallocation, 2)} hint={base ? `baseline ${fmtNum(base.metrics.peakOverallocation, 2)}` : undefined} tone={sel.metrics.peakOverallocation > 0 ? 'bad' : 'good'} />
       </div>
 
-      <div className="mb-4 flex gap-1 border-b border-line" role="tablist">
+      <div className="mb-5 inline-flex gap-1 rounded-xl border border-line bg-plane p-1" role="tablist">
         {([['recs', 'Recommended changes'], ['gantt', 'Gantt: original vs optimized'], ['demand', 'Resource demand']] as const).map(([id, label]) => (
-          <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)} className={`-mb-px border-b-2 px-4 py-2 text-sm font-medium ${tab === id ? 'border-navy-700 text-ink' : 'border-transparent text-ink-2 hover:text-ink'}`}>{label}</button>
+          <button key={id} role="tab" aria-selected={tab === id} onClick={() => setTab(id)} className={`rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all ${tab === id ? 'bg-white text-ink shadow-card ring-1 ring-line' : 'text-ink-2 hover:text-ink'}`}>{label}</button>
         ))}
       </div>
 

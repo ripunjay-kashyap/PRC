@@ -8,24 +8,37 @@
   --series-2: #eb6834;
   --series-3: #1baf7a;
   --series-4: #eda100;
-  --series-5: #e87ba4;
-  --series-6: #008300;
-  --series-7: #6250d6;
-  --series-8: #e34948;
 }
 
 html, body, #root { height: 100%; }
-body { @apply bg-plane text-ink font-sans antialiased; }
+body { @apply bg-white text-ink font-sans antialiased; font-feature-settings: 'cv11', 'ss01'; }
+h1, h2, h3 { letter-spacing: -0.02em; }
 .tabular { font-variant-numeric: tabular-nums; }
 
+/* Diagonal hatch, as used on framed marketing panels */
+.hatch {
+  background-image: repeating-linear-gradient(135deg, rgba(10,10,10,0.045) 0 1px, transparent 1px 7px);
+}
+/* Faint dot grid for the canvas behind framed sections */
+.dots {
+  background-image: radial-gradient(rgba(10,10,10,0.08) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.sky {
+  background: linear-gradient(90deg, #e0f2fe 0%, #eff6ff 35%, #f5f3ff 70%, #e0f2fe 100%);
+}
+
 @layer components {
-  .card { @apply bg-surface rounded-xl shadow-card; }
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-1; }
-  .btn-primary { @apply btn bg-navy-700 text-white hover:bg-navy-800; }
-  .btn-secondary { @apply btn bg-white text-ink ring-1 ring-line hover:bg-navy-50; }
-  .btn-ghost { @apply btn text-ink-2 hover:bg-navy-50; }
-  .input { @apply w-full rounded-lg border border-line bg-white px-2.5 py-1.5 text-sm tabular focus:border-navy-500 focus:outline-none focus:ring-2 focus:ring-navy-100; }
-  .label { @apply text-xs font-medium uppercase tracking-wide text-ink-3; }
-  .th { @apply px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-ink-3 whitespace-nowrap; }
-  .td { @apply px-3 py-2 text-sm align-top; }
+  .card { @apply bg-white rounded-xl border border-line shadow-card; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2 text-sm font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-navy-500 focus-visible:ring-offset-2; }
+  .btn-primary { @apply btn bg-[#111827] text-white shadow-btn hover:bg-black; }
+  .btn-accent { @apply btn bg-accent text-white shadow-btnBlue hover:bg-navy-600; }
+  .btn-secondary { @apply btn bg-white text-ink border border-line shadow-card hover:bg-plane hover:border-[#d1d5db]; }
+  .btn-ghost { @apply btn text-ink-2 hover:bg-plane hover:text-ink; }
+  .input { @apply w-full rounded-lg border border-line bg-white px-2.5 py-1.5 text-sm tabular shadow-card transition-colors placeholder:text-[#9ca3af] focus:border-navy-500 focus:outline-none focus:ring-4 focus:ring-navy-100; }
+  .label { @apply text-[11px] font-medium uppercase tracking-[0.06em] text-ink-3; }
+  .th { @apply px-3 py-2.5 text-left text-[11px] font-medium uppercase tracking-[0.06em] text-ink-3 whitespace-nowrap; }
+  .td { @apply px-3 py-2.5 text-sm align-top; }
+  .eyebrow { @apply inline-flex items-center gap-2 rounded-full border border-line bg-white px-2.5 py-1 text-xs font-medium text-ink-2 shadow-card; }
+  .corner { @apply absolute h-2.5 w-2.5 rounded-[3px] border border-[#d1d5db] bg-white; }
 }

@@ -33,7 +33,7 @@ export function SettingsPage({ go }: PageProps) {
 
   return (
     <div>
-      <PageHeader
+      <PageHeader eyebrow="Step 5 · Settings"
         title="Optimization settings"
         subtitle="Capacities, costs, deadlines and objective weights. Defaults come from the XER files where available; every value you change is used by all six scenarios."
         actions={

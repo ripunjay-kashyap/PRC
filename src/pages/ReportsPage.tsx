@@ -45,7 +45,7 @@ export function ReportsPage({ go }: PageProps) {
 
   return (
     <div>
-      <PageHeader title="Reports" subtitle="Export the full analysis to Excel. The original XER files are never modified." />
+      <PageHeader eyebrow="Step 8 · Export" title="Reports" subtitle="Export the full analysis to Excel. The original XER files are never modified." />
       {!optimization && <div className="mb-4"><Notice kind="info" title="The optimization has not been run" action={<button className="btn-secondary" onClick={() => go('scenarios')}>Run it</button>}>The report will contain the comparison and conflicts, but no scenarios or recommendations.</Notice></div>}
       {stale && <div className="mb-4"><Notice kind="warning" title="Scenario results are out of date — re-run the optimization before exporting." /></div>}
       <div className="grid gap-6 lg:grid-cols-2">

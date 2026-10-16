@@ -50,7 +50,7 @@ export function MappingPage({ go }: PageProps) {
 
   return (
     <div>
-      <PageHeader
+      <PageHeader eyebrow="Step 3 · Map resources"
         title="Resource mapping"
         subtitle="Resources with similar names across projects are suggested as one pooled group (names normalised for case, punctuation, plurals, synonyms and project suffixes). Review, rename, merge or split, then confirm. All further analysis uses the confirmed groups."
         actions={

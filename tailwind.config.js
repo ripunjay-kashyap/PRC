@@ -4,20 +4,29 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: { DEFAULT: '#0b0b0b', 2: '#52514e', 3: '#898781' },
-        plane: '#f4f4f1',
-        surface: '#fcfcfb',
-        line: '#e1e0d9',
-        navy: { 50: '#eef3f9', 100: '#d9e4f1', 500: '#2a5d93', 600: '#1f4a78', 700: '#1f3a5f', 800: '#172c48', 900: '#0f1e33' },
-        accent: { DEFAULT: '#eb6834', soft: '#fdebe3' },
+        ink: { DEFAULT: '#0a0a0a', 2: '#4b5563', 3: '#6b7280' },
+        plane: '#fafafa',
+        surface: '#ffffff',
+        line: '#e5e7eb',
+        // "navy" is the app's interactive scale: near-black primary + bright blue accent
+        navy: { 50: '#eff6ff', 100: '#dbeafe', 500: '#2563eb', 600: '#1d4ed8', 700: '#111827', 800: '#030712', 900: '#0a0a0a' },
+        accent: { DEFAULT: '#2563eb', soft: '#eff6ff' },
         good: '#0ca30c',
         goodText: '#006300',
         warn: '#fab219',
         serious: '#ec835a',
         critical: '#d03b3b',
       },
-      fontFamily: { sans: ['system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'] },
-      boxShadow: { card: '0 1px 2px rgba(11,11,11,0.05), 0 0 0 1px rgba(11,11,11,0.06)' },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', '-apple-system', '"Segoe UI"', 'Roboto', 'sans-serif'],
+      },
+      boxShadow: {
+        card: '0 1px 2px rgba(10,10,10,0.04)',
+        btn: 'inset 0 1px 0 rgba(255,255,255,0.12), 0 1px 2px rgba(10,10,10,0.25), 0 0 0 1px #0a0a0a',
+        btnBlue: 'inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(37,99,235,0.35), 0 0 0 1px #1d4ed8',
+        pop: '0 8px 24px -6px rgba(10,10,10,0.12), 0 0 0 1px rgba(10,10,10,0.06)',
+      },
+      letterSpacing: { tightest: '-0.035em' },
     },
   },
   plugins: [],

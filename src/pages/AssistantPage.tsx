@@ -45,7 +45,7 @@ export function AssistantPage({ go }: PageProps) {
     const opt = state.optimization;
     const sel = opt?.scenarios.find((s) => s.id === state.selectedScenarioId) ?? opt?.scenarios.find((s) => s.id === 'pooled_float');
     const shift = sel?.recommendations.shifts[0];
-    if (shift) out.unshift(`Why was ${shift.project}'s ${shift.code} (${shift.name}) shifted?`);
+    if (shift) out.unshift(`Why was ${shift.project}'s ${shift.code} shifted?`);
     return out;
   }, [state.optimization, state.selectedScenarioId]);
 
@@ -84,7 +84,7 @@ export function AssistantPage({ go }: PageProps) {
 
   return (
     <div>
-      <PageHeader
+      <PageHeader eyebrow="Step 7 · AI assistant"
         title="AI assistant"
         subtitle="Gemini explains the results in plain language. It only sees a compact summary of numbers the app has already computed and is instructed never to invent allocations."
         actions={state.chat.length > 0 && <button className="btn-ghost" onClick={() => setChat([])}>Clear conversation</button>}
@@ -95,16 +95,20 @@ export function AssistantPage({ go }: PageProps) {
         <Card bodyClass="flex h-[min(70vh,680px)] flex-col p-0">
           <div className="flex-1 space-y-4 overflow-y-auto px-5 py-5" data-testid="chat-log" aria-live="polite">
             {state.chat.length === 0 && (
-              <div className="py-6 text-center">
-                <p className="text-sm text-ink-2">Ask about bottlenecks, shifted activities, deadlines or trade-offs between scenarios.</p>
-                <div className="mt-4 flex flex-wrap justify-center gap-2">
-                  {starters.map((s) => <button key={s} className="rounded-full bg-navy-50 px-3 py-1.5 text-sm text-navy-600 ring-1 ring-navy-100 hover:bg-navy-100" onClick={() => void send(s)}>{s}</button>)}
+              <div className="flex h-full flex-col items-center justify-center py-6 text-center">
+                <div className="mb-4 rounded-xl border border-line bg-white p-3 shadow-card">
+                  <svg viewBox="0 0 24 24" className="h-6 w-6 text-accent" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 3l1.9 5.2L19 10l-5.1 1.8L12 17l-1.9-5.2L5 10l5.1-1.8z" /><path d="M19 16l.7 1.8L21.5 18.5l-1.8.7L19 21l-.7-1.8-1.8-.7 1.8-.7z" /></svg>
+                </div>
+                <h3 className="text-lg font-semibold tracking-tight">Ask about your schedules</h3>
+                <p className="mt-1 max-w-md text-sm text-ink-2">Bottlenecks, shifted activities, deadlines or trade-offs between scenarios — answered from the app's computed results.</p>
+                <div className="mt-6 flex max-w-2xl flex-wrap justify-center gap-2">
+                  {starters.map((s) => <button key={s} className="rounded-lg border border-line bg-white px-3 py-1.5 text-sm text-ink-2 shadow-card transition-colors hover:border-[#d1d5db] hover:text-ink" onClick={() => void send(s)}>{s}</button>)}
                 </div>
               </div>
             )}
             {state.chat.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.role === 'user' ? 'rounded-br-md bg-navy-700 text-white' : m.error ? 'rounded-bl-md bg-[#fdf0f0] text-[#9b1c1c] ring-1 ring-[#f2c0c0]' : 'rounded-bl-md bg-plane text-ink ring-1 ring-line'}`}>
+                <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${m.role === 'user' ? 'rounded-br-md bg-ink text-white' : m.error ? 'rounded-bl-md bg-[#fdf0f0] text-[#9b1c1c] ring-1 ring-[#f2c0c0]' : 'rounded-bl-md bg-white text-ink shadow-card ring-1 ring-line'}`}>
                   {m.role === 'model' && !m.error ? <RichText text={m.text} /> : m.text}
                   {m.model && <div className="mt-1 text-[11px] text-ink-3">{m.model}</div>}
                   {m.error && i === state.chat.length - 1 && <button className="mt-1 block text-xs font-medium underline" onClick={() => { const q = state.chat[i - 1]?.text; setChat(state.chat.slice(0, i - 1)); if (q) void send(q); }}>Retry</button>}
@@ -137,7 +141,7 @@ export function AssistantPage({ go }: PageProps) {
               <Badge>{summaryKb.toFixed(1)} KB</Badge>
             </div>
             <details className="mt-3 text-xs">
-              <summary className="cursor-pointer font-medium text-navy-500">View summary JSON</summary>
+              <summary className="cursor-pointer font-medium text-accent">View summary JSON</summary>
               <pre className="mt-2 max-h-80 overflow-auto rounded-lg bg-plane p-2 text-[11px] leading-snug">{JSON.stringify(summary, null, 2)}</pre>
             </details>
           </Card>

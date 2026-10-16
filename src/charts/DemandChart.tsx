@@ -77,7 +77,7 @@ function DemandTooltip({ active, payload, projectNames }: { active?: boolean; pa
   if (!active || !payload?.length) return null;
   const r = payload[0].payload;
   return (
-    <div className="rounded-lg bg-white px-3 py-2 text-xs shadow-card">
+    <div className="rounded-lg bg-white px-3 py-2 text-xs shadow-pop">
       <div className="mb-1 font-semibold text-ink">{fmtDay(r.day)}</div>
       {projectNames.map((n, p) => (
         <div key={p} className="flex items-center justify-between gap-4">

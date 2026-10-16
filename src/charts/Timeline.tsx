@@ -17,8 +17,8 @@ export function Timeline({ projects }: { projects: ProjectComparison[] }) {
     <div className="overflow-x-auto">
       <div className="relative min-w-[560px] pb-6">
         {projects.length > 1 && ovE > ovS && (
-          <div className="absolute inset-y-0 rounded bg-[#fdebe3]" style={{ left: `calc(170px + (100% - 170px) * ${pct(ovS) / 100})`, width: `calc((100% - 170px) * ${(pct(ovE) - pct(ovS)) / 100})` }} title="All projects overlap here">
-            <span className="absolute -bottom-0 left-1 text-[11px] font-medium text-[#9a3d14]">Overlap</span>
+          <div className="absolute inset-y-0 rounded hatch bg-[#eff6ff]/70" style={{ left: `calc(170px + (100% - 170px) * ${pct(ovS) / 100})`, width: `calc((100% - 170px) * ${(pct(ovE) - pct(ovS)) / 100})` }} title="All projects overlap here">
+            <span className="absolute -bottom-0 left-1 text-[11px] font-medium text-[#1d4ed8]">Overlap</span>
           </div>
         )}
         {projects.map((p, i) => (

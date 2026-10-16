@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useStore } from '../state/store';
-import { Badge, Card, IssueList, Notice, PageHeader, Spinner, StatusIcon } from '../components/ui';
+import { Badge, Card, Frame, IssueList, Notice, PageHeader, Spinner, StatusIcon } from '../components/ui';
 import type { PageProps } from './types';
 import type { DataIssue } from '../lib/model';
 
@@ -68,32 +68,95 @@ export function UploadPage({ go }: PageProps) {
     }
   }
 
+  const dropzone = (
+    <div
+      onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
+      onDragLeave={() => setDrag(false)}
+      onDrop={(e) => { e.preventDefault(); setDrag(false); void handleFiles(e.dataTransfer.files); }}
+      className={`relative flex flex-col items-center justify-center rounded-xl border px-6 text-center transition-colors ${model ? 'py-8' : 'py-12'} ${drag ? 'border-accent bg-accent-soft' : 'hatch border-line bg-white'}`}
+    >
+      <div className="mb-3 rounded-xl border border-line bg-white p-2.5 shadow-card">
+        <svg viewBox="0 0 24 24" className="h-6 w-6 text-ink" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M12 15V4m0 0L8 8m4-4l4 4M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3" /></svg>
+      </div>
+      <p className="text-[15px] font-medium text-ink">Drop .xer files here <span className="font-normal text-ink-3">— optionally with a resource-assignment .csv</span></p>
+      <p className="mt-1 text-[13px] text-ink-3">Several files and several projects per file. Windows-1252 and UTF-8 are detected automatically.</p>
+      <button className="btn-secondary mt-4" onClick={() => fileInput.current?.click()} disabled={busy}>Browse files</button>
+      <input ref={fileInput} type="file" multiple accept=".xer,.csv" className="hidden" data-testid="file-input" onChange={(e) => e.target.files && void handleFiles(e.target.files)} />
+      {busy && <div className="mt-3"><Spinner label="Parsing…" /></div>}
+    </div>
+  );
+
   return (
     <div>
-      <PageHeader
-        title="Upload P6 schedules"
-        subtitle="Drop one or more Primavera P6 .xer exports. Files are parsed in your browser and never uploaded to a server; the original files are never modified."
-        actions={
-          <>
-            <button className="btn-secondary" onClick={loadSample} disabled={busy} data-testid="load-sample">Load sample data</button>
-            {model && <button className="btn-ghost" onClick={() => { reset(); setErrors([]); setCsvIssues(null); }}>Clear all</button>}
-          </>
-        }
-      />
-
-      <div
-        onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
-        onDragLeave={() => setDrag(false)}
-        onDrop={(e) => { e.preventDefault(); setDrag(false); void handleFiles(e.dataTransfer.files); }}
-        className={`card flex flex-col items-center justify-center border-2 border-dashed px-6 py-10 text-center transition-colors ${drag ? 'border-navy-500 bg-navy-50' : 'border-line'}`}
-      >
-        <svg viewBox="0 0 48 48" className="mb-3 h-11 w-11 text-navy-500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden><path d="M24 30V10m0 0l-8 8m8-8l8 8M10 30v8h28v-8" /></svg>
-        <p className="text-sm font-medium text-ink">Drag & drop .xer files here (optionally with a resource-assignment .csv)</p>
-        <p className="mt-1 text-xs text-ink-3">Multiple files and multiple projects per file are supported. Windows-1252 and UTF-8 encodings are detected automatically.</p>
-        <button className="btn-primary mt-4" onClick={() => fileInput.current?.click()} disabled={busy}>Choose files</button>
-        <input ref={fileInput} type="file" multiple accept=".xer,.csv" className="hidden" data-testid="file-input" onChange={(e) => e.target.files && void handleFiles(e.target.files)} />
-        {busy && <div className="mt-3"><Spinner label="Parsing…" /></div>}
-      </div>
+      {!model ? (
+        <section className="dots -mx-4 -mt-8 mb-6 px-4 pb-4 pt-12 sm:-mx-6 sm:px-6 lg:-mx-10 lg:-mt-10 lg:px-10 lg:pt-16">
+          <Frame className="mx-auto max-w-5xl">
+            <div className="rounded-2xl border border-line bg-white px-6 pb-10 pt-12 text-center sm:px-12 sm:pt-16">
+              <div className="eyebrow mb-6">
+                <span className="rounded bg-ink px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">M.Tech</span>
+                Primavera P6 · Multi-project resource allocation
+              </div>
+              <h1 className="mx-auto max-w-3xl text-balance text-[40px] font-semibold leading-[1.05] tracking-tightest text-ink sm:text-[56px]">
+                Level resources across every project
+              </h1>
+              <p className="mx-auto mt-5 max-w-2xl text-balance text-[17px] leading-relaxed text-ink-2">
+                Upload P6 schedules, pool matching crews across sites, find the days you are over-allocated and get a constraint-checked plan — explained in plain language.
+              </p>
+              <div className="mt-8 flex flex-wrap justify-center gap-3">
+                <button className="btn-primary px-4 py-2.5 text-[15px]" onClick={loadSample} disabled={busy} data-testid="load-sample">
+                  Load sample data
+                  <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M4 10h12m-5-5l5 5-5 5" /></svg>
+                </button>
+                <button className="btn-secondary px-4 py-2.5 text-[15px]" onClick={() => fileInput.current?.click()} disabled={busy}>Upload your .xer files</button>
+              </div>
+              <div className="mx-auto mt-10 flex max-w-3xl flex-wrap items-center justify-center gap-2">
+                {[
+                  ['#0a0a0a', 'Parse XER'],
+                  ['#2563eb', 'Detect conflicts'],
+                  ['#1baf7a', 'Optimize with SGS'],
+                  ['#eb6834', 'Explain with AI'],
+                ].map(([c, t], i) => (
+                  <div key={t} className="flex items-center gap-2">
+                    {i > 0 && <span className="hidden h-px w-6 bg-line sm:block" />}
+                    <span className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm ${i === 0 ? 'border-line bg-white text-ink shadow-card' : 'border-transparent bg-plane text-ink-2'}`}>
+                      <span className="flex h-5 w-5 items-center justify-center rounded-md text-[10px] font-semibold text-white" style={{ background: c }}>{i + 1}</span>
+                      {t}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              <div className="mx-auto mt-10 max-w-3xl text-left">{dropzone}</div>
+            </div>
+          </Frame>
+          <div className="mx-auto mt-10 grid max-w-5xl overflow-hidden rounded-xl border border-line bg-white sm:grid-cols-3">
+            {[
+              ['Deterministic numbers', 'CPM, conflict detection and a serial schedule generation scheme run in your browser. Nothing is guessed.'],
+              ['Every constraint checked', 'Logic with lags, fixed durations, data dates and pooled capacity are validated for each of six scenarios.'],
+              ['Excel-ready output', 'A seven-sheet workbook with demand vs capacity, recommended shifts, transfers, hires and assumptions.'],
+            ].map(([t, d], i) => (
+              <div key={t} className={`p-6 ${i > 0 ? 'border-t border-line sm:border-l sm:border-t-0' : ''}`}>
+                <div className="text-[15px] font-semibold tracking-tight">{t}</div>
+                <p className="mt-1.5 text-[14px] leading-relaxed text-ink-2">{d}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : (
+        <>
+          <PageHeader
+            eyebrow="Step 1 · Upload"
+            title="Your schedules"
+            subtitle="Files are parsed in your browser and never uploaded to a server; the original files are never modified."
+            actions={
+              <>
+                <button className="btn-secondary" onClick={loadSample} disabled={busy} data-testid="load-sample">Reload sample data</button>
+                <button className="btn-ghost" onClick={() => { reset(); setErrors([]); setCsvIssues(null); }}>Clear all</button>
+              </>
+            }
+          />
+          {dropzone}
+        </>
+      )}
 
       {errors.length > 0 && (
         <div className="mt-4 space-y-2">{errors.map((e, i) => <Notice key={i} kind="error" title={e} />)}</div>
@@ -101,7 +164,7 @@ export function UploadPage({ go }: PageProps) {
 
       {model && (
         <>
-          <h2 className="mb-3 mt-8 text-lg font-semibold">Validation summary</h2>
+          <h2 className="mb-4 mt-10 text-xl font-semibold tracking-tight">Validation summary</h2>
           <div className="grid gap-4 md:grid-cols-2" data-testid="file-summaries">
             {model.files.map((f) => {
               const projects = model.projects.filter((p) => p.fileId === f.fileId);
