@@ -44,7 +44,7 @@ export function ScenariosPage({ go }: PageProps) {
         {header}
         {state.optStatus === 'error' && <div className="mb-4"><Notice kind="error" title="Optimization failed">{state.optError}</Notice></div>}
         {!canRun && <div className="mb-4"><Notice kind="warning" title="Confirm the resource mapping first." action={<button className="btn-secondary" onClick={() => go('mapping')}>Review mapping</button>} /></div>}
-        {state.optStatus === 'running' ? <div className="card p-10 text-center"><Spinner label="Running the serial SGS for 4 priority rules × 5 scenarios in a background worker…" /></div> : <EmptyState title="No results yet">Run the optimization to compare scenarios. It runs in a background worker so the page stays responsive.</EmptyState>}
+        {state.optStatus === 'running' ? <div className="card p-10 text-center"><Spinner label="Comparing six resource strategies…" /></div> : <EmptyState title="No results yet">Run the optimization to compare six ways of sharing your crews across projects.</EmptyState>}
       </div>
     );
 

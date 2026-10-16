@@ -93,7 +93,7 @@ export function UploadPage({ go }: PageProps) {
           <Frame className="mx-auto max-w-5xl">
             <div className="rounded-2xl border border-line bg-white px-6 pb-10 pt-12 text-center sm:px-12 sm:pt-16">
               <div className="eyebrow mb-6">
-                <span className="rounded bg-ink px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">M.Tech</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                 Primavera P6 · Multi-project resource allocation
               </div>
               <h1 className="mx-auto max-w-3xl text-balance text-[40px] font-semibold leading-[1.05] tracking-tightest text-ink sm:text-[56px]">
@@ -113,7 +113,7 @@ export function UploadPage({ go }: PageProps) {
                 {[
                   ['#0a0a0a', 'Parse XER'],
                   ['#2563eb', 'Detect conflicts'],
-                  ['#1baf7a', 'Optimize with SGS'],
+                  ['#1baf7a', 'Optimize the plan'],
                   ['#eb6834', 'Explain with AI'],
                 ].map(([c, t], i) => (
                   <div key={t} className="flex items-center gap-2">
@@ -130,9 +130,9 @@ export function UploadPage({ go }: PageProps) {
           </Frame>
           <div className="mx-auto mt-10 grid max-w-5xl overflow-hidden rounded-xl border border-line bg-white sm:grid-cols-3">
             {[
-              ['Deterministic numbers', 'CPM, conflict detection and a serial schedule generation scheme run in your browser. Nothing is guessed.'],
-              ['Every constraint checked', 'Logic with lags, fixed durations, data dates and pooled capacity are validated for each of six scenarios.'],
-              ['Excel-ready output', 'A seven-sheet workbook with demand vs capacity, recommended shifts, transfers, hires and assumptions.'],
+              ['Reliable numbers', 'Every date, conflict and cost is calculated in your browser from your schedules. Nothing is guessed.'],
+              ['Every plan checked', 'Activity links, durations, progress dates and crew limits are verified for each of six resource strategies.'],
+              ['Ready to share', 'Export an Excel report with daily demand, recommended changes, crew transfers, hires and assumptions.'],
             ].map(([t, d], i) => (
               <div key={t} className={`p-6 ${i > 0 ? 'border-t border-line sm:border-l sm:border-t-0' : ''}`}>
                 <div className="text-[15px] font-semibold tracking-tight">{t}</div>

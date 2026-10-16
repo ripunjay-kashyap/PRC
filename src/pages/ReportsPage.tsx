@@ -59,7 +59,7 @@ export function ReportsPage({ go }: PageProps) {
           {done && <div className="mt-3"><Notice kind="ok" title={`Downloaded ${done}`} /></div>}
           {error && <div className="mt-3"><Notice kind="error" title="Export failed">{error}</Notice></div>}
         </Card>
-        <Card title="Analysis summary (JSON)" subtitle="The same compact summary the AI assistant receives — useful as a dissertation appendix.">
+        <Card title="Analysis summary (JSON)" subtitle="The same compact summary the AI assistant receives, for sharing or record-keeping.">
           <button className="btn-secondary" onClick={() => download(JSON.stringify(buildChatSummary({ model, groups, settings, analysis, optimization, selectedScenarioId: state.selectedScenarioId }), null, 2), `p6-analysis-summary-${stamp()}.json`, 'application/json')}>Download summary JSON</button>
         </Card>
       </div>
