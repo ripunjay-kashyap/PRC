@@ -216,6 +216,7 @@ export class WorkCalendar {
 
   /** First working day >= day */
   nextWorkday(day: DayNum): DayNum {
+    if (!Number.isFinite(day)) return day;
     let d = day;
     for (let guard = 0; guard < 3660; guard++, d++) if (this.isWorkday(d)) return d;
     return day;
@@ -223,6 +224,7 @@ export class WorkCalendar {
 
   /** Last working day <= day */
   prevWorkday(day: DayNum): DayNum {
+    if (!Number.isFinite(day)) return day;
     let d = day;
     for (let guard = 0; guard < 3660; guard++, d--) if (this.isWorkday(d)) return d;
     return day;
@@ -230,6 +232,7 @@ export class WorkCalendar {
 
   /** Number of working days in [start, finish) */
   countWorkdays(start: DayNum, finish: DayNum): number {
+    if (!Number.isFinite(start) || !Number.isFinite(finish)) return 0;
     let n = 0;
     for (let d = start; d < finish; d++) if (this.isWorkday(d)) n++;
     return n;
@@ -237,7 +240,7 @@ export class WorkCalendar {
 
   /** Finish boundary of an activity of `days` working days that starts at `start`. */
   finishFrom(start: DayNum, days: number): DayNum {
-    if (days <= 0) return start;
+    if (days <= 0 || !Number.isFinite(start)) return start;
     let d = start;
     let left = days;
     for (let guard = 0; guard < 36600; guard++, d++) {
@@ -251,7 +254,7 @@ export class WorkCalendar {
 
   /** Latest start boundary such that finishFrom(start, days) <= finish. */
   startFrom(finish: DayNum, days: number): DayNum {
-    if (days <= 0) return finish;
+    if (days <= 0 || !Number.isFinite(finish)) return finish;
     let d = finish - 1;
     let left = days;
     for (let guard = 0; guard < 36600; guard++, d--) {
@@ -268,7 +271,7 @@ export class WorkCalendar {
    * forward; negative lags move back over that many working days. Zero is identity.
    */
   shift(boundary: DayNum, lag: number): DayNum {
-    if (lag === 0) return boundary;
+    if (lag === 0 || !Number.isFinite(boundary)) return boundary;
     if (lag > 0) return this.finishFrom(this.nextWorkday(boundary), lag);
     return this.startFrom(boundary, -lag);
   }
