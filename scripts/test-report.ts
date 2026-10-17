@@ -107,7 +107,7 @@ p('`npm run typecheck`, `npm run lint` and `npm run build` must pass before `npm
 p();
 p('## 3. Not verifiable in this environment');
 p();
-p('- Live Gemini calls: there was no API key here, so `/api/chat` is tested with a mocked `fetch` only (valid request, missing key, malformed and oversized input, upstream errors, timeout). Test it after deploying to Vercel (see README).');
+p('- Live Gemini calls: there was no API key here, so `/api/chat` is tested with a mocked `fetch` only (valid request, missing key, malformed and oversized input, upstream errors, timeout). Live calls were then checked on the Vercel deployment (see `docs/developer-guide.md`).');
 p('- `vercel dev` / a real Vercel deployment.');
 writeFileSync('docs/test-report.md', L.join('\n') + '\n');
 console.log('docs/test-report.md written');
